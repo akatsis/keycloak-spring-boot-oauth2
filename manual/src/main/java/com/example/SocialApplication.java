@@ -28,6 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -55,12 +56,23 @@ public class SocialApplication extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
+	public void init(WebSecurity web) throws Exception {
+		super.init(web);
+		web.debug(true);
+	}
+
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/webjars/**").permitAll().anyRequest()
-				.authenticated().and().exceptionHandling()
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
-				.logoutSuccessUrl("/").permitAll().and().csrf()
+		http
+			.antMatcher("/**").authorizeRequests()
+			.antMatchers("/", "/login**", "/webjars/**").permitAll()
+			.anyRequest().authenticated()
+		.and().exceptionHandling()
+				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/"))
+		.and().logout()
+				.logoutSuccessUrl("/").permitAll()
+		.and().csrf()
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 		// @formatter:on

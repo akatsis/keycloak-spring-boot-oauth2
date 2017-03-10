@@ -1,12 +1,58 @@
+#security:
+#  oauth2:
+#    client:
+#      clientId: 233668646673605
+#      clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+#      accessTokenUri: https://graph.facebook.com/oauth/access_token
+#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+#      tokenName: oauth_token
+#      authenticationScheme: query
+#      clientAuthenticationScheme: form
+#    resource:
+#      userInfoUri: https://graph.facebook.com/me
 security:
   oauth2:
     client:
-      clientId: 233668646673605
-      clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
-      accessTokenUri: https://graph.facebook.com/oauth/access_token
-      userAuthorizationUri: https://www.facebook.com/dialog/oauth
-      tokenName: oauth_token
-      authenticationScheme: query
-      clientAuthenticationScheme: form
+      client-id: customer-portal
+      client-secret: 98223c47-bd12-4103-abb4-7ac72c7b4634
+      access-token-uri: http://localhost:8095/auth/realms/spring-demo/protocol/openid-connect/token
+      user-authorization-uri: http://localhost:8095/auth/realms/spring-demo/protocol/openid-connect/auth
+      authentication-scheme: header
+      client-authentication-scheme: header
     resource:
-      userInfoUri: https://graph.facebook.com/me
+#      user-info-uri: http://localhost:8095/auth/realms/spring-demo/protocol/openid-connect/userinfo
+      jwt:
+        key-value:  |
+             -----BEGIN PUBLIC KEY-----
+             MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCh65Gqi3BSaVe12JHlqChWm8WscICrj46MVqmRoO9FCmqbxEpCQhE1RLjW+GDyc3YdXW3xqUQ3AZxDkTmN1h6BWkhdxPLzA4EnwgWmGurhyJlUF9Id2tKns0jbC+Z7kIb2LcOiKHKL7mRb3q7EtWubNnrvunv8fx+WeXGaQoGEVQIDAQAB
+             -----END PUBLIC KEY-----
+#       TODO SOSOkey-uri: http://localhost:8095/auth/realms/spring-demo/protocol/openid-connect/certs
+#      jwt:
+#        key-value: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCh65Gqi3BSaVe12JHlqChWm8WscICrj46MVqmRoO9FCmqbxEpCQhE1RLjW+GDyc3YdXW3xqUQ3AZxDkTmN1h6BWkhdxPLzA4EnwgWmGurhyJlUF9Id2tKns0jbC+Z7kIb2LcOiKHKL7mRb3q7EtWubNnrvunv8fx+WeXGaQoGEVQIDAQAB
+
+#
+#keycloak.key-value: |
+#             -----BEGIN PUBLIC KEY-----
+#             MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCh65Gqi3BSaVe12JHlqChWm8WscICrj46MVqmRoO9FCmqbxEpCQhE1RLjW+GDyc3YdXW3xqUQ3AZxDkTmN1h6BWkhdxPLzA4EnwgWmGurhyJlUF9Id2tKns0jbC+Z7kIb2LcOiKHKL7mRb3q7EtWubNnrvunv8fx+WeXGaQoGEVQIDAQAB
+#             -----END PUBLIC KEY-----
+
+logging:
+  level:
+     org.springframework.security: debug
+management:
+  context-path: /management
+  security:
+    enabled: false
+
+
+#security:
+#      oauth2:
+#        client:
+#          clientId: @keycloak.client.id@
+#          clientSecret: @keycloak.client.secret@
+#          accessTokenUri: http://@keycloak.host@:@keycloak.port@/auth/realms/@keycloak.realm@/protocol/openid-connect/token
+#          userAuthorizationUri: http://@keycloak.host@:@keycloak.port@/auth/realms/@keycloak.realm@/protocol/openid-connect/auth
+#          authenticationScheme: header
+#          clientAuthenticationScheme: header
+#        resource:
+#          userInfoUri: http://@keycloak.host@:@keycloak.port@/auth/realms/@keycloak.realm@/protocol/openid-connect/userinfo
